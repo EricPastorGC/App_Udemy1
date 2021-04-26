@@ -1,4 +1,5 @@
 ﻿using AppUdemy.Data;
+using AppUdemy.Helpers;
 using AppUdemy.Interfaces;
 using AppUdemy.Services;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,9 @@ namespace AppUdemy.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>(); //Servicio de token
+            services.AddScoped<IUserRepository, UserRepository>(); //Servicio del repositorio
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
