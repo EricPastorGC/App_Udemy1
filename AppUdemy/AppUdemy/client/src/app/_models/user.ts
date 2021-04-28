@@ -1,6 +1,7 @@
 export interface User{
     username: string;
     token: string;
+    photoUrl: string;
 }
 
 //let data: number | string = 42;  //en typescript se pueden aplicar diferentes tipos de variable a una misma variable
