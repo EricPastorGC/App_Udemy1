@@ -19,6 +19,7 @@ namespace AppUdemy.Extensions
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings")); //servicio que da la configuracion del cloudinary desde appsettings.json
             services.AddScoped<ITokenService, TokenService>(); //Servicio de token
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>(); //Servicio del repositorio
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);

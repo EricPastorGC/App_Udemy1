@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccountService } from '../_services/account.service';
 
-@Injectable({
+@Injectable({ //guards es parecido al interceptor pero para la parte de frontend solo
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): Observable<boolean>{
     return this.accountService.currentUser$.pipe(
-      map(user => {
+      map(user => {  //map aplica una funcion a cada valor emitido
         if (user) return true;
         this.toastr.error('You shall not pass!')
       })
