@@ -20,6 +20,7 @@ namespace AppUdemy.Extensions
             services.AddScoped<ITokenService, TokenService>(); //Servicio de token
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ILikesRepository, LikesRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>(); //Servicio del repositorio
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
