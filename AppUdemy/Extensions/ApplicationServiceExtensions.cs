@@ -2,6 +2,7 @@
 using AppUdemy.Helpers;
 using AppUdemy.Interfaces;
 using AppUdemy.Services;
+using AppUdemy.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,13 +17,12 @@ namespace AppUdemy.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
+            services.AddSingleton<PresenceTracker>();
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings")); //servicio que da la configuracion del cloudinary desde appsettings.json
             services.AddScoped<ITokenService, TokenService>(); //Servicio de token
             services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<ILikesRepository, LikesRepository>();
-            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<LogUserActivity>();
-            services.AddScoped<IUserRepository, UserRepository>(); //Servicio del repositorio
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {

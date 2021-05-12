@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  //apiUrl: 'https://localhost:44376/api/'
-  apiUrl: 'https://udemyeric.azurewebsites.net/api/'
+  //apiUrl: 'https://localhost:44376/api/',
+  apiUrl: 'https://udemyeric.azurewebsites.net/api/',
+  //hubUrl: 'https://localhost:44376/hubs/'
+  hubUrl: 'https://udemyeric.azurewebsites.net/hubs/'
+
 
 };
 

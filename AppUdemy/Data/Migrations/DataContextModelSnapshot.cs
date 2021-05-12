@@ -160,6 +160,34 @@ namespace AppUdemy.Data.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("AppUdemy.Entities.Connection", b =>
+                {
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ConnectionId");
+
+                    b.HasIndex("GroupName");
+
+                    b.ToTable("Connections");
+                });
+
+            modelBuilder.Entity("AppUdemy.Entities.Group", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Groups");
+                });
+
             modelBuilder.Entity("AppUdemy.Entities.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -349,6 +377,13 @@ namespace AppUdemy.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AppUdemy.Entities.Connection", b =>
+                {
+                    b.HasOne("AppUdemy.Entities.Group", null)
+                        .WithMany("Connections")
+                        .HasForeignKey("GroupName");
+                });
+
             modelBuilder.Entity("AppUdemy.Entities.Message", b =>
                 {
                     b.HasOne("AppUdemy.Entities.AppUser", "Recipient")
@@ -452,6 +487,11 @@ namespace AppUdemy.Data.Migrations
                     b.Navigation("Photos");
 
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("AppUdemy.Entities.Group", b =>
+                {
+                    b.Navigation("Connections");
                 });
 #pragma warning restore 612, 618
         }

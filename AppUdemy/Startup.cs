@@ -3,6 +3,7 @@ using AppUdemy.Extensions;
 using AppUdemy.Interfaces;
 using AppUdemy.Middleware;
 using AppUdemy.Services;
+using AppUdemy.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,7 @@ namespace AppUdemy
             services.AddControllers();
             services.AddCors();
             services.AddIdentityServices(_config);
+            services.AddSignalR();
 
             services.AddSwaggerGen(c =>
             {
@@ -63,8 +65,11 @@ namespace AppUdemy
 
             app.UseRouting();
 
-            //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://udemyeric.azurewebsites.net"));
+            app.UseCors(x => x.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                //.WithOrigins("https://localhost:4200"));
+                .WithOrigins("https://udemyeric.azurewebsites.net"));
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -76,6 +81,8 @@ namespace AppUdemy
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
         }
     }
